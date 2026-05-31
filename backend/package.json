@@ -1,0 +1,25 @@
+{
+  "name": "price-radar-extension-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --watch . --ext js,json --ignore node_modules --exec node index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.3.0",
+    "dotenv": "^17.3.1",
+    "node-cron": "^4.2.1",
+    "cheerio": "^1.2.0",
+    "axios": "^1.15.2",
+    "@google/generative-ai": "^0.24.1",
+    "openai": "^4.103.0",
+    "resend": "^6.10.0",
+    "cors": "^2.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
