@@ -7,12 +7,13 @@ const app = express();
 
 app.use(cors({
 	origin: function (origin, callback) {
-		const isChromeExtension = !origin || origin.startsWith('chrome-extension://');
+		// origin can be undefined for some requests (e.g. curl), guard startsWith calls
+		const isChromeExtension = !origin || (origin && origin.startsWith('chrome-extension://'));
 		const isLocalhost =
 			process.env.NODE_ENV === 'development'
 			&& (
-				origin.startsWith('http://localhost')
-				|| origin.startsWith('http://127.0.0.1')
+				(origin && origin.startsWith('http://localhost'))
+				|| (origin && origin.startsWith('http://127.0.0.1'))
 			);
 
 		// Chrome extension in all environments, localhost only in development
