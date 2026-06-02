@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PriceRadar</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div id="header">
+      <span class="header-title">PriceRadar</span>
+      <span id="platform-badge" class="platform-badge"></span>
+    </div>
+
+    <!-- Product Name -->
+    <div id="product-name" class="product-name"></div>
+
+    <!-- Price Section -->
+    <div id="price-section" class="price-section">
+      <div class="price-stack">
+        <div class="price-label">Current Price</div>
+        <div id="current-price" class="current-price"></div>
+      </div>
+      <div id="verdict-badge" class="verdict-badge"></div>
+    </div>
+
+    <!-- AI Analysis -->
+    <div id="ai-analysis" class="ai-analysis-card" aria-live="polite" data-state="loading">
+      <div class="ai-analysis-head">
+        <div class="ai-analysis-icon" aria-hidden="true">
+          <img src="../icons/Copilot_20260405_163707.png" alt="" />
+        </div>
+        <div class="ai-analysis-meta">
+          <p class="ai-analysis-label">AI Analysis</p>
+          <p class="ai-analysis-subtitle">Generated from price history and drop signal</p>
+        </div>
+      </div>
+      <p id="ai-explanation" class="ai-explanation">Loading AI insight...</p>
+    </div>
+
+    <!-- Stats Row -->
+    <div id="stats-row" class="stats-row">
+      <div id="stat-low" class="stat-box stat-low">
+        <div class="stat-label">90-day Low</div>
+        <div class="stat-value"></div>
+      </div>
+      <div id="stat-avg" class="stat-box stat-avg">
+        <div class="stat-label">Average</div>
+        <div class="stat-value"></div>
+      </div>
+      <div id="stat-high" class="stat-box stat-high">
+        <div class="stat-label">90-day High</div>
+        <div class="stat-value"></div>
+      </div>
+    </div>
+
+    <div id="chart-range" class="chart-range">
+      <button class="range-btn" data-range="30">30d</button>
+      <button class="range-btn active" data-range="90">90d</button>
+    </div>
+
+    <div id="chart-section" class="chart-section">
+      <canvas id="priceChart"></canvas>
+    </div>
+
+    <!-- Alert Section -->
+    <div id="alert-section" class="alert-section">
+      <h3>Price Alert</h3>
+      <input
+        type="email"
+        id="alert-email"
+        placeholder="your@email.com"
+        class="alert-input"
+      />
+      <input
+        type="number"
+        id="alert-price"
+        placeholder="Target price"
+        class="alert-input"
+        step="0.01"
+      />
+      <button id="alert-btn" class="alert-btn">Set Alert</button>
+    </div>
+
+    <!-- State Messages -->
+    <div id="state-loading" class="state-message loading">
+      <div class="skeleton-pulse"></div>
+      <div class="skeleton-pulse" style="width: 80%; margin-top: 8px;"></div>
+    </div>
+
+    <div id="state-not-product" class="state-message branded-state">
+      <div class="not-product-card">
+        <div class="not-product-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PriceRadar logo">
+            <rect x="0" y="0" width="64" height="64" rx="14" fill="#1e1e1e"></rect>
+            <path d="M14 40 L24 32 L33 36 L42 24 L50 28" fill="none" stroke="#5dcaa5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="50" cy="28" r="3.5" fill="#e4572e"></circle>
+            <text x="20" y="39" fill="#f6f3ec" font-size="18" font-weight="600" font-family="system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">S</text>
+          </svg>
+        </div>
+        <div class="not-product-title">PriceRadar</div>
+        <div class="not-product-subtext">Works only on Amazon and Flipkart product pages</div>
+        <div class="not-product-note">Navigate to a product page to see price history</div>
+      </div>
+    </div>
+
+    <div id="state-first-visit" class="state-message">
+      <p>✓ Tracking started! Come back tomorrow for analysis.</p>
+    </div>
+
+    <div id="state-error" class="state-message error">
+      <p id="error-text"></p>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="footer">
+      Powered by StoreNova
+    </div>
+  </div>
+
+  <!-- Local Chart.js bundle (CSP-safe) -->
+  <script src="../vendor/chart.umd.min.js"></script>
+
+  <!-- Popup Script -->
+  <script src="popup.js"></script>
+</body>
+</html>
