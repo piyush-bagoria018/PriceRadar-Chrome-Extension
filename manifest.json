@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "PriceRadar by StoreNova",
+  "version": "1.0.0",
+  "description": "Track price history and get AI buying recommendations on Amazon and Flipkart",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": [
+    "https://*.amazon.in/*",
+    "https://*.flipkart.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.amazon.in/*/dp/*",
+        "https://*.amazon.in/dp/*",
+        "https://*.flipkart.com/*/p/*"
+      ],
+      "js": ["utils/extractors.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "script-src": ["'self'"]
+  }
+}
