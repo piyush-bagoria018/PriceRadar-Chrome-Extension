@@ -8,6 +8,27 @@ LLM-powered AI analysis (GitHub Models / OpenAI) provides concise, confidence-sc
 
 Perfect for budget-conscious shoppers who want intelligent buying recommendations backed by historical price data.
 
+## 📌 Visual Preview
+
+### Floating Badge on Product Page
+![Floating Badge](extension/assets/Screenshot%202026-06-02%20213328.png)
+
+### Price History & AI Analysis
+![Analysis Popup](extension/assets/Screenshot%202026-06-02%20213951.png)
+
+### History Chart/Graph
+![MongoDB View](extension/assets/Screenshot%202026-06-02%20215238.png)
+
+### Setting a Price Alert
+![Setting Alert](extension/assets/Screenshot%202026-06-02%20214103.png)
+
+### Email Confirmation from Resend
+![Email Confirmation](extension/assets/Screenshot%202026-06-02%20214324.png)
+
+
+### Live Extension Demo (Video)
+You can view the full workflow [in this demo video](extension/assets/PriceRadar%20Extension.mp4).
+
 ---
 
 ## 🎯 Features
@@ -124,8 +145,8 @@ Edit `Extension/extension/background.js`:
 // For local development
 const BACKEND_URL = 'http://localhost:5000';
 
-// For production (replace with your DigitalOcean domain)
-const BACKEND_URL = 'https://your-domain.com';
+// For production (deployed on DigitalOcean)
+const BACKEND_URL = 'https://priceradar-q33vr.ondigitalocean.app';
 ```
 
 #### 3. Reload Extension
@@ -175,6 +196,8 @@ Extension/
 │   ├── package.json                  # Dependencies & scripts
 │   ├── .env                          # Environment variables (gitignored)
 │   ├── .env.example                  # Template for .env
+│   ├── scripts/
+│   │   └── cleanupExternalTestData.js # Database cleanup utility
 │   └── src/
 │       ├── controllers/
 │       │   └── priceTracking.controller.js    # API handler logic
@@ -326,6 +349,20 @@ The system evaluates prices based on historical data:
 - Scrapes all tracked products via ScraperAPI and records a daily snapshot
 - Enforces a rolling 90-day window for stored history
 - Fallback: if scrape fails, the day's price is not added
+
+### Database Maintenance
+
+To keep the database clean from short-lived testing or accidental tracking, a cleanup utility is included. It removes tracked products (and their linked alerts) that have insufficient price history.
+
+```bash
+cd Extension/backend
+
+# Dry run to see what would be deleted
+npm run cleanup:external -- --min-history=4
+
+# Execute the deletion
+npm run cleanup:external -- --min-history=4 --execute
+```
 
 ---
 
